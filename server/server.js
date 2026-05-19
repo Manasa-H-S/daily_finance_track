@@ -14,21 +14,13 @@ app.get('/', (req, res) => {
   res.send('Finance Tracker API Running');
 });
 
-// Routes
-app.use(
-  '/api/auth',
-  require('./routes/authRoutes')
-);
+// API routes
+app.use('/api/auth', require('./routes/authRoutes'));
+app.use('/api/expenses', require('./routes/expenseRoutes'));
 
-app.use(
-  '/api/expenses',
-  require('./routes/expenseRoutes')
-);
-
+// IMPORTANT: Use Railway port and bind to 0.0.0.0
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(
-    `Server running on port ${PORT}`
-  );
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Server running on port ${PORT}`);
 });
