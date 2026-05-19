@@ -15,8 +15,8 @@ app.get('/', (req, res) => {
 });
 
 // API routes
-app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/expenses', require('./routes/expenseRoutes'));
+// app.use('/api/auth', require('./routes/authRoutes'));
+// app.use('/api/expenses', require('./routes/expenseRoutes'));
 
 // IMPORTANT: Use Railway port and bind to 0.0.0.0
 const PORT = process.env.PORT || 5000;
