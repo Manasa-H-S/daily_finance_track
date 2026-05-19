@@ -9,6 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get("/health", (req, res) => {
+  res.json({ status: "ok" });
+});
+
 // Test route
 app.get('/', (req, res) => {
   res.send('Finance Tracker API Running');
@@ -21,11 +25,6 @@ app.use('/api/expenses', require('./routes/expenseRoutes'));
 // IMPORTANT: Use Railway port and bind to 0.0.0.0
 // const PORT = process.env.PORT || 5000;
 const PORT = process.env.PORT;
-
-if (!PORT) {
-  console.error("PORT is not defined!");
-  process.exit(1);
-}
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log("Server running on port", PORT);
