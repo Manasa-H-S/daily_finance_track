@@ -1,4 +1,7 @@
-const API_URL = 'http://localhost:5000/api/expenses';
+// const API_URL = 'http://localhost:5000/api/expenses';
+const BASE_URL =  process.env.REACT_APP_API_URL;
+
+const API_URL = `${BASE_URL}/expenses`;
 
 const getAuthHeaders = () => {
     const token = localStorage.getItem('token');
