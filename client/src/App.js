@@ -57,11 +57,25 @@ function App() {
   // Static data
   const totalIncome = 50000;
 
-  const currentMonth =
+  const currentDate = new Date();
+
+  const currentMonthName =
     new Date().toLocaleString('default', {
       month: 'long',
     });
 
+  const currentMonth = currentDate.getMonth(); // 0-11
+  const currentYear = currentDate.getFullYear();
+
+  const currentMonthExpenses = expenses.filter((expense) => {
+    const expenseDate = new Date(expense.date);
+
+    return (
+      expenseDate.getMonth() === currentMonth &&
+      expenseDate.getFullYear() === currentYear
+    );
+  });
+  
   // Load expenses from backend
   useEffect(() => {
     // If user is not logged in, no need to load
@@ -101,22 +115,27 @@ function App() {
   }, [token]);
 
   // Total spent
-  const totalSpent = expenses.reduce(
-    (total, expense) =>
-      total + Number(expense.amount || 0),
+  // const totalSpent = expenses.reduce(
+  //   (total, expense) =>
+  //     total + Number(expense.amount || 0),
+  //   0
+  // );
+
+  const totalSpent = currentMonthExpenses.reduce(
+    (acc, curr) => acc + Number(curr.amount || 0),
     0
   );
 
   // Daily totals (1-30)
   const dailyTotals = useMemo(() => {
-    const totals = Array(30).fill(0);
+    const totals = Array(31).fill(0);
 
-    expenses.forEach((expense) => {
+    currentMonthExpenses.forEach((expense) => {
       const day = new Date(
         expense.date
       ).getDate();
 
-      if (day >= 1 && day <= 30) {
+      if (day >= 1 && day <= 31) {
         totals[day - 1] += Number(
           expense.amount || 0
         );
@@ -124,13 +143,13 @@ function App() {
     });
 
     return totals;
-  }, [expenses]);
+  }, [currentMonthExpenses]);
 
   // Weekly totals
   const weeklyTotals = useMemo(() => {
     const weeks = [0, 0, 0, 0];
 
-    expenses.forEach((expense) => {
+    currentMonthExpenses.forEach((expense) => {
       const day = new Date(
         expense.date
       ).getDate();
@@ -151,7 +170,7 @@ function App() {
     });
 
     return weeks;
-  }, [expenses]);
+  }, [currentMonthExpenses]);
 
   // Monthly chart data
   const monthlyData = [
@@ -180,7 +199,7 @@ function App() {
       );
       alert(
         error.message ||
-          'Failed to add expense'
+        'Failed to add expense'
       );
     }
   };
@@ -210,7 +229,7 @@ function App() {
       );
       alert(
         error.message ||
-          'Failed to delete expense'
+        'Failed to delete expense'
       );
     }
   };
@@ -236,7 +255,7 @@ function App() {
       );
       alert(
         error.message ||
-          'Failed to update expense'
+        'Failed to update expense'
       );
     }
   };
@@ -262,7 +281,7 @@ function App() {
     <div className="min-h-screen bg-[#f7f5ff] p-4">
       <div className="bg-[#fffdfd] rounded-[35px] p-6 shadow-lg">
         <Header
-          month={currentMonth}
+          month={currentMonthName}
           income={totalIncome}
           spent={totalSpent}
           openModal={() =>
@@ -290,7 +309,7 @@ function App() {
 
         <div className="mt-6">
           <ExpenseTable
-            expenses={expenses}
+            expenses={currentMonthExpenses}
             expenseTypes={expenseTypes}
           />
         </div>
@@ -308,7 +327,7 @@ function App() {
 
       {showExpenseList && (
         <ExpenseListModal
-          expenses={expenses}
+          expenses={currentMonthExpenses}
           expenseTypes={expenseTypes}
           onClose={() =>
             setShowExpenseList(false)
