@@ -9,17 +9,43 @@ const weekColors = [
 ];
 
 function ExpenseTable({ expenses, expenseTypes }) {
-  const days = Array.from({ length: 30 }, (_, i) => i + 1);
+  const days = Array.from({ length: 31 }, (_, i) => i + 1);
+
+  // const getExpense = (type, day) => {
+  //   const expense = expenses.find(
+  //     (item) =>
+  //       item.title === type &&
+  //       new Date(item.date).getDate() === day
+  //   );
+
+  //   return expense ? `₹${expense.amount}` : '-';
+  // };
 
   const getExpense = (type, day) => {
-    const expense = expenses.find(
-      (item) =>
-        item.title === type &&
-        new Date(item.date).getDate() === day
-    );
+    const total = expenses
+      .filter(
+        (item) =>
+          item.title === type &&
+          new Date(item.date).getDate() === day
+      )
+      .reduce(
+        (sum, item) => sum + Number(item.amount),
+        0
+      );
 
-    return expense ? `₹${expense.amount}` : '-';
+    return total > 0 ? `₹${total}` : '-';
   };
+
+  const expenseTypeTotals = expenses.reduce(
+    (acc, expense) => {
+      acc[expense.title] =
+        (acc[expense.title] || 0) +
+        Number(expense.amount);
+
+      return acc;
+    },
+    {}
+  );
 
   return (
     <div className="bg-[#fffdfd] rounded-3xl p-4 shadow-sm">
@@ -50,6 +76,9 @@ function ExpenseTable({ expenses, expenseTypes }) {
                   </th>
                 );
               })}
+              <th className="bg-[#f8b4c5] px-3 py-2 text-gray-700 font-semibold min-w-[120px]">
+                Total
+              </th>
             </tr>
           </thead>
 
@@ -77,6 +106,9 @@ function ExpenseTable({ expenses, expenseTypes }) {
                     </td>
                   );
                 })}
+                <td className="bg-[#fdf2f8] px-3 py-2 font-semibold text-gray-700">
+                  ₹ {expenseTypeTotals[type] || 0}
+                </td>
               </tr>
             ))}
           </tbody>
