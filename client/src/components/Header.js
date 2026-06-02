@@ -1,7 +1,7 @@
 // src/components/Header.js
 
 import React from 'react';
-import { FaPlus, FaEye } from 'react-icons/fa';
+import { FaPlus, FaEye, FaSignOutAlt } from 'react-icons/fa';
 
 function Header({
   month,
@@ -10,6 +10,7 @@ function Header({
   openModal,
   openExpenseList,
   openIncomeModal,
+  logout,
 }) {
   return (
     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
@@ -70,6 +71,13 @@ function Header({
         >
           <FaPlus className="text-sm" />
           Add Expense
+        </button>
+        <button
+          onClick={logout}
+          className="bg-red-500 hover:bg-red-600 text-white px-5 py-3 rounded-2xl shadow-md flex items-center justify-center gap-2 font-medium transition"
+        >
+          <FaSignOutAlt />
+          Logout
         </button>
       </div>
     </div>

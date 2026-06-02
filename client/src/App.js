@@ -82,6 +82,19 @@ function App() {
     );
   });
 
+  const logout = () => {
+    const confirmed = window.confirm(
+      'Are you sure you want to logout?'
+    );
+
+    if (!confirmed) return;
+
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+
+    window.location.reload();
+  };
+
   // Load expenses from backend
   useEffect(() => {
     if (!token) {
@@ -306,6 +319,7 @@ function App() {
           openIncomeModal={() =>
             setShowIncomeModal(true)
           }
+          logout={logout}
         />
 
         <div className="mt-6">
