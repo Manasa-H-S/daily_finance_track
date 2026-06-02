@@ -54,7 +54,7 @@ function Header({
       </div>
 
       {/* Right Section - Buttons */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full lg:w-auto lg:min-w-fit">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto lg:min-w-fit">
         {/* Expense List Button */}
         <button
           onClick={openExpenseList}
