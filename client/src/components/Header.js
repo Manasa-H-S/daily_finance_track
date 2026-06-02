@@ -74,7 +74,7 @@ function Header({
         </button>
         <button
           onClick={logout}
-          className="bg-red-500 hover:bg-red-600 text-white px-5 py-3 rounded-2xl shadow-md flex items-center justify-center gap-2 font-medium transition"
+          className="bg-red-300 hover:bg-red-600 text-white px-5 py-3 rounded-2xl shadow-md flex items-center justify-center gap-2 font-medium transition"
         >
           <FaSignOutAlt />
           Logout

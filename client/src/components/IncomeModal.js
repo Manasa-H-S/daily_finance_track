@@ -95,7 +95,7 @@ function IncomeModal({
             onClick={
               handleSaveSalary
             }
-            className="mt-3 bg-green-500 text-white px-4 py-2 rounded-lg"
+            className="mt-3 bg-pink-400 text-white px-4 py-2 rounded-lg"
           >
             Save Income
           </button>
@@ -146,7 +146,7 @@ function IncomeModal({
             onClick={
               handleAddIncome
             }
-            className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+            className="bg-blue-400 text-white px-4 py-2 rounded-lg"
           >
             Add Income
           </button>
@@ -154,7 +154,7 @@ function IncomeModal({
 
         <button
           onClick={onClose}
-          className="mt-6 w-full bg-red-500 text-white py-2 rounded-lg"
+          className="mt-6 w-full bg-red-300 text-white py-2 rounded-lg"
         >
           Close
         </button>

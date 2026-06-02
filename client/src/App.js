@@ -27,10 +27,11 @@ import IncomeModal from './components/IncomeModal';
 export const expenseTypes = [
   'Groceries',
   'Petrol',
-  'Rent',
   'Current Bill',
+  'Savings',
   'Chats',
   'Hotel',
+  'ice-cream',
   'Gift',
   'Accessories',
   'Dress',
@@ -38,7 +39,9 @@ export const expenseTypes = [
   'Transport',
   'Veg & Fruits',
   'Parlour',
-  'Home Decores',
+  'Online Shopping',
+  'Medicine',
+  'Sports',
   'Others',
 ];
 
