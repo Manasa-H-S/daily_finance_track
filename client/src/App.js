@@ -21,6 +21,8 @@ import ExpenseTable from './components/ExpenseTable';
 import ExpenseForm from './components/ExpenseForm';
 import ExpenseListModal from './components/ExpenseListModal';
 import LoginPage from './pages/loginPage';
+import { getIncome } from './services/incomeService';
+import IncomeModal from './components/IncomeModal';
 
 export const expenseTypes = [
   'Groceries',
@@ -55,7 +57,11 @@ function App() {
     useState(false);
 
   // Static data
-  const totalIncome = 50000;
+  // const totalIncome = 103000;
+  const [income, setIncome] = useState(0);
+
+  const [showIncomeModal, setShowIncomeModal] =
+    useState(false);
 
   const currentDate = new Date();
 
@@ -75,26 +81,33 @@ function App() {
       expenseDate.getFullYear() === currentYear
     );
   });
-  
+
   // Load expenses from backend
   useEffect(() => {
-    // If user is not logged in, no need to load
     if (!token) {
       setLoading(false);
       return;
     }
 
-    const loadExpenses = async () => {
+    const loadData = async () => {
       try {
-        const data = await fetchExpenses();
-        setExpenses(data);
+        const expenseData =
+          await fetchExpenses();
+
+        setExpenses(expenseData);
+
+        const incomeData =
+          await getIncome();
+
+        setIncome(
+          incomeData.totalIncome || 0
+        );
       } catch (error) {
         console.error(
-          'Load expenses error:',
+          'Load data error:',
           error
         );
 
-        // If token is invalid, logout
         if (
           error.message === 'No token provided' ||
           error.message === 'Invalid token'
@@ -105,13 +118,13 @@ function App() {
           return;
         }
 
-        alert('Failed to load expenses');
+        alert('Failed to load data');
       } finally {
         setLoading(false);
       }
     };
 
-    loadExpenses();
+    loadData();
   }, [token]);
 
   // Total spent
@@ -282,13 +295,16 @@ function App() {
       <div className="bg-[#fffdfd] rounded-[35px] p-6 shadow-lg">
         <Header
           month={currentMonthName}
-          income={totalIncome}
+          income={income}
           spent={totalSpent}
           openModal={() =>
             setOpenModal(true)
           }
           openExpenseList={() =>
             setShowExpenseList(true)
+          }
+          openIncomeModal={() =>
+            setShowIncomeModal(true)
           }
         />
 
@@ -334,6 +350,20 @@ function App() {
           }
           onDelete={deleteExpense}
           onUpdate={updateExpense}
+        />
+      )}
+      {showIncomeModal && (
+        <IncomeModal
+          onClose={() =>
+            setShowIncomeModal(false)
+          }
+          onIncomeUpdated={() => {
+            getIncome().then((data) => {
+              setIncome(
+                data.totalIncome || 0
+              );
+            });
+          }}
         />
       )}
     </div>

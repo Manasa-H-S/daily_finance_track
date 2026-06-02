@@ -9,6 +9,7 @@ function Header({
   spent,
   openModal,
   openExpenseList,
+  openIncomeModal,
 }) {
   return (
     <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
@@ -28,7 +29,7 @@ function Header({
         {/* Income + Expense Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full lg:w-auto">
           {/* Income Card */}
-          <div className="bg-[#fff0b8] px-5 py-3 rounded-2xl shadow-sm min-w-[180px]">
+          <div onClick={openIncomeModal} className="bg-[#fff0b8] px-5 py-3 rounded-2xl shadow-sm min-w-[180px] cursor-pointer">
             <p className="text-sm text-gray-500">
               Income
             </p>
