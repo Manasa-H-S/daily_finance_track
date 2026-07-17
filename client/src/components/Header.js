@@ -67,14 +67,14 @@ function Header({
         {/* Add Expense Button */}
         <button
           onClick={openModal}
-          className="bg-[#f8b4c5] hover:bg-[#f59ab2] text-white px-5 py-3 rounded-2xl shadow-md flex items-center justify-center gap-2 font-medium transition"
+          className="bg-pink-400 hover:bg-pink-500 text-white px-5 py-3 rounded-2xl shadow-md flex items-center justify-center gap-2 font-medium transition"
         >
           <FaPlus className="text-sm" />
           Add Expense
         </button>
         <button
           onClick={logout}
-          className="bg-red-300 hover:bg-red-600 text-white px-5 py-3 rounded-2xl shadow-md flex items-center justify-center gap-2 font-medium transition"
+          className="bg-red-400 hover:bg-red-500 text-white px-5 py-3 rounded-2xl shadow-md flex items-center justify-center gap-2 font-medium transition"
         >
           <FaSignOutAlt />
           Logout

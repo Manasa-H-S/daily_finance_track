@@ -154,7 +154,7 @@ function IncomeModal({
 
         <button
           onClick={onClose}
-          className="mt-6 w-full bg-red-300 text-white py-2 rounded-lg"
+          className="mt-6 w-full bg-red-500 text-white py-2 rounded-lg"
         >
           Close
         </button>

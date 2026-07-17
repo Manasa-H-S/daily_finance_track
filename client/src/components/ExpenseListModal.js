@@ -101,7 +101,7 @@ function ExpenseListModal({
 
     return (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-            <div className="bg-[#fffdfd] w-full max-w-7xl rounded-[32px] shadow-2xl border border-white/60 p-6 max-h-[92vh] overflow-hidden">
+            <div className="bg-[#fffdfd] w-full max-w-7xl rounded-[32px] shadow-2xl border border-white/60 p-6 h-[92vh] flex flex-col">
                 {/* Header */}
                 <div className="flex justify-between items-center mb-5">
                     <div>
@@ -115,7 +115,7 @@ function ExpenseListModal({
 
                     <button
                         onClick={onClose}
-                        className="w-10 h-10 rounded-full bg-[#ffe4e6] text-gray-600 hover:bg-[#fecdd3] flex items-center justify-center transition"
+                        className="w-10 h-10 rounded-full bg-red-400 text-white hover:bg-red-500 flex items-center justify-center transition"
                     >
                         <FaTimes />
                     </button>
@@ -159,7 +159,7 @@ function ExpenseListModal({
                 </div>
 
                 {/* Table */}
-                <div className="overflow-auto max-h-[70vh] rounded-3xl border border-gray-100 shadow-inner">
+                <div className="flex-1 overflow-y-auto rounded-3xl border border-gray-100 shadow-inner">
                     <table className="w-full text-sm">
                         <thead className="sticky top-0 z-10">
                             <tr className="bg-[#f8fafc]">

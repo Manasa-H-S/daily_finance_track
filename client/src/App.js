@@ -202,14 +202,19 @@ function App() {
   }, [currentMonthExpenses]);
 
   // Monthly chart data
-  const monthlyData = [
-    10000,
-    12000,
-    18000,
-    16000,
-    22000,
-    totalSpent,
-  ];
+  const monthlyData = useMemo(() => {
+    const totals = Array(12).fill(0);
+
+    expenses.forEach((expense) => {
+      const date = new Date(expense.date);
+
+      if (date.getFullYear() === currentYear) {
+        totals[date.getMonth()] += Number(expense.amount);
+      }
+    });
+
+    return totals;
+  }, [expenses, currentYear]);
 
   // Add expense
   const addExpense = async (expense) => {
@@ -360,7 +365,8 @@ function App() {
 
       {showExpenseList && (
         <ExpenseListModal
-          expenses={currentMonthExpenses}
+          // expenses={currentMonthExpenses}
+          expenses={expenses}
           expenseTypes={expenseTypes}
           onClose={() =>
             setShowExpenseList(false)

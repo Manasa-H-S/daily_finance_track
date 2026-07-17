@@ -22,21 +22,50 @@ ChartJS.register(
 );
 
 function MonthlyLineChart({ data }) {
+
+  const currentMonth = new Date().getMonth();
+
+  const labels = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ].slice(0, currentMonth + 1);
+
   const chartData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    labels,
     datasets: [
       {
         label: 'Monthly Expenses',
-        data,
+        data: data.slice(0, currentMonth + 1),
         borderColor: '#cdb4db',
         backgroundColor: '#ffc8dd',
         tension: 0.4,
+        fill: false,
       },
     ],
   };
 
   const options = {
     responsive: true,
+    plugins: {
+      legend: {
+        display: true,
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
   };
 
   return (
@@ -45,7 +74,10 @@ function MonthlyLineChart({ data }) {
         Monthly Expenses
       </h2>
 
-      <Line data={chartData} options={options} />
+      <Line
+        data={chartData}
+        options={options}
+      />
     </div>
   );
 }
