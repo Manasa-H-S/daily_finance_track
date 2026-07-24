@@ -70,7 +70,7 @@ function MonthlyLineChart({ data }) {
 
   return (
     <div className="bg-[#fff7f0] rounded-3xl p-5 shadow-sm">
-      <h2 className="text-2xl font-semibold text-gray-700 mb-5">
+      <h2 className="text-2xl font-semibold text-center text-gray-700 mb-5">
         Monthly Expenses
       </h2>
 

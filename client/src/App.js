@@ -240,12 +240,29 @@ function App() {
     });
   }, [expenses, income, currentYear, currentMonth]);
 
-  const topFiveExpenses = useMemo(() => {
+  // const topFiveExpenses = useMemo(() => {
 
-    return [...currentMonthExpenses]
+  //   return [...currentMonthExpenses]
+  //     .sort((a, b) => b.amount - a.amount)
+  //     .slice(0, 5);
+
+  // }, [currentMonthExpenses]);
+  const topFiveExpenses = useMemo(() => {
+    const totals = {};
+
+    currentMonthExpenses.forEach((expense) => {
+      totals[expense.title] =
+        (totals[expense.title] || 0) +
+        Number(expense.amount);
+    });
+
+    return Object.entries(totals)
+      .map(([title, amount]) => ({
+        title,
+        amount,
+      }))
       .sort((a, b) => b.amount - a.amount)
       .slice(0, 5);
-
   }, [currentMonthExpenses]);
 
   // Add expense
