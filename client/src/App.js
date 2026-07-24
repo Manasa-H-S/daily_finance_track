@@ -23,6 +23,8 @@ import ExpenseListModal from './components/ExpenseListModal';
 import LoginPage from './pages/loginPage';
 import { getIncome } from './services/incomeService';
 import IncomeModal from './components/IncomeModal';
+import MonthlySavings from "./components/monthlySavings";
+import TopFiveExpenses from "./components/TopFiveExpenses";
 
 export const expenseTypes = [
   'Groceries',
@@ -216,6 +218,36 @@ function App() {
     return totals;
   }, [expenses, currentYear]);
 
+  const monthlySavings = useMemo(() => {
+    const monthlyExpenseTotals = Array(12).fill(0);
+
+    expenses.forEach((expense) => {
+      const date = new Date(expense.date);
+
+      if (date.getFullYear() === currentYear) {
+        monthlyExpenseTotals[date.getMonth()] += Number(
+          expense.amount
+        );
+      }
+    });
+
+    return monthlyExpenseTotals.map((expense, month) => {
+      if (month > currentMonth) {
+        return null;
+      }
+
+      return income - expense;
+    });
+  }, [expenses, income, currentYear, currentMonth]);
+
+  const topFiveExpenses = useMemo(() => {
+
+    return [...currentMonthExpenses]
+      .sort((a, b) => b.amount - a.amount)
+      .slice(0, 5);
+
+  }, [currentMonthExpenses]);
+
   // Add expense
   const addExpense = async (expense) => {
     try {
@@ -342,6 +374,15 @@ function App() {
           />
           <MonthlyLineChart
             data={monthlyData}
+          />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-6">
+          <MonthlySavings
+            savings={monthlySavings}
+          />
+          <TopFiveExpenses
+            expenses={topFiveExpenses}
           />
         </div>
 

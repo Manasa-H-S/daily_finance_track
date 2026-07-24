@@ -5,6 +5,25 @@ import {
     FaTimes,
 } from 'react-icons/fa';
 
+const parseExpenseDate = (dateString) => {
+    if (!dateString) return null;
+
+    // If already YYYY-MM-DD
+    if (dateString.length === 10) {
+        const [year, month, day] = dateString.split("-").map(Number);
+        return new Date(year, month - 1, day);
+    }
+
+    // If ISO format (2026-07-01T00:00:00.000Z)
+    const d = new Date(dateString);
+
+    return new Date(
+        d.getUTCFullYear(),
+        d.getUTCMonth(),
+        d.getUTCDate()
+    );
+};
+
 function ExpenseListModal({
     expenses,
     expenseTypes,
@@ -54,19 +73,37 @@ function ExpenseListModal({
         years.push(year);
     }
 
+    // const filteredExpenses = useMemo(() => {
+    //     return expenses
+    //         .filter((expense) => {
+    //             const date = new Date(expense.date);
+
+    //             return (
+    //                 date.getMonth() === Number(selectedMonth) &&
+    //                 date.getFullYear() === Number(selectedYear)
+    //             );
+    //         })
+    //         .sort(
+    //             (a, b) =>
+    //                 new Date(b.date) - new Date(a.date)
+    //         );
+    // }, [expenses, selectedMonth, selectedYear]);
+
     const filteredExpenses = useMemo(() => {
         return expenses
             .filter((expense) => {
-                const date = new Date(expense.date);
+                const date = parseExpenseDate(expense.date);
 
                 return (
+                    date &&
                     date.getMonth() === Number(selectedMonth) &&
                     date.getFullYear() === Number(selectedYear)
                 );
             })
             .sort(
                 (a, b) =>
-                    new Date(b.date) - new Date(a.date)
+                    parseExpenseDate(b.date) -
+                    parseExpenseDate(a.date)
             );
     }, [expenses, selectedMonth, selectedYear]);
 
@@ -97,6 +134,11 @@ function ExpenseListModal({
         });
 
         setEditingId(null);
+    };
+
+    const formatExpenseDate = (dateString) => {
+        const date = parseExpenseDate(dateString);
+        return date ? date.toISOString().split("T")[0] : "";
     };
 
     return (
@@ -197,13 +239,13 @@ function ExpenseListModal({
                                         <tr
                                             key={expense.id}
                                             className={`border-t border-white ${index % 2 === 0
-                                                    ? 'bg-[#eff6ff]' // pastel blue - lighter
-                                                    : 'bg-[#dbeafe]' // pastel blue - slightly darker
+                                                ? 'bg-[#eff6ff]' // pastel blue - lighter
+                                                : 'bg-[#dbeafe]' // pastel blue - slightly darker
                                                 }`}
                                         >
                                             {/* Date */}
                                             <td className="px-4 py-3 text-gray-700">
-                                                {expense.date}
+                                                {formatExpenseDate(expense.date)}
                                             </td>
 
                                             {/* Type */}
