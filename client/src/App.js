@@ -25,6 +25,7 @@ import { getIncome } from './services/incomeService';
 import IncomeModal from './components/IncomeModal';
 import MonthlySavings from "./components/monthlySavings";
 import TopFiveExpenses from "./components/TopFiveExpenses";
+import AIInsightsModal from "./components/AIInsightsModal";
 
 export const expenseTypes = [
   'Groceries',
@@ -35,7 +36,7 @@ export const expenseTypes = [
   'Hotel',
   'ice-cream',
   'Gift',
-  'Accessories',
+  'Accessories/Beauty-products',
   'Dress',
   'Drink',
   'Transport',
@@ -60,6 +61,7 @@ function App() {
     useState(false);
   const [showExpenseList, setShowExpenseList] =
     useState(false);
+  const [showAIInsights, setShowAIInsights] = useState(false);
 
   // Static data
   // const totalIncome = 103000;
@@ -376,6 +378,7 @@ function App() {
           openIncomeModal={() =>
             setShowIncomeModal(true)
           }
+          openAIInsights={() => setShowAIInsights(true)}
           logout={logout}
         />
 
@@ -431,6 +434,13 @@ function App() {
           }
           onDelete={deleteExpense}
           onUpdate={updateExpense}
+        />
+      )}
+      {showAIInsights && (
+        <AIInsightsModal
+          expenses={expenses}
+          income={income}
+          onClose={() => setShowAIInsights(false)}
         />
       )}
       {showIncomeModal && (

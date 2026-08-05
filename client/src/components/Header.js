@@ -1,7 +1,12 @@
 // src/components/Header.js
 
-import React from 'react';
-import { FaPlus, FaEye, FaSignOutAlt } from 'react-icons/fa';
+import React from "react";
+import {
+  FaPlus,
+  FaEye,
+  FaRobot,
+  FaSignOutAlt,
+} from "react-icons/fa";
 
 function Header({
   month,
@@ -10,76 +15,104 @@ function Header({
   openModal,
   openExpenseList,
   openIncomeModal,
+  openAIInsights,
   logout,
 }) {
   return (
-    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-      {/* Left Section */}
-      <div className="flex flex-col lg:flex-row lg:items-center gap-4 flex-1">
-        {/* Month + Title */}
-        <div className="min-w-[160px]">
-          <h1 className="text-4xl md:text-5xl font-bold italic leading-none text-gray-800">
+    <div className="flex items-center justify-between gap-6">
+
+      {/* Left Side */}
+      <div className="flex items-center gap-6">
+
+        {/* Month */}
+        <div className="w-[220px]">
+          <h1 className="text-6xl font-bold italic leading-none text-gray-800">
             {month}
           </h1>
 
-          <p className="text-gray-500 text-lg mt-1 leading-tight">
+          <p className="text-gray-500 text-xl mt-2">
             Finance Tracker
           </p>
         </div>
 
-        {/* Income + Expense Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full lg:w-auto">
-          {/* Income Card */}
-          <div onClick={openIncomeModal} className="bg-[#fff0b8] px-5 py-3 rounded-2xl shadow-sm min-w-[180px] cursor-pointer">
-            <p className="text-sm text-gray-500">
-              Income
-            </p>
+        {/* Income */}
+        <div
+          onClick={openIncomeModal}
+          className="bg-[#fff0b8] w-[170px] px-5 py-4 rounded-2xl shadow-sm cursor-pointer hover:shadow-md transition"
+        >
+          <p className="text-sm text-gray-500">
+            Income
+          </p>
 
-            <h2 className="text-2xl font-bold text-gray-800 mt-1">
-              ₹ {income.toLocaleString()}
-            </h2>
-          </div>
-
-          {/* Expense Card */}
-          <div className="bg-[#ffd6e0] px-5 py-3 rounded-2xl shadow-sm min-w-[180px]">
-            <p className="text-sm text-gray-500">
-              Expense
-            </p>
-
-            <h2 className="text-2xl font-bold text-gray-800 mt-1">
-              ₹ {spent.toLocaleString()}
-            </h2>
-          </div>
+          <h2 className="text-2xl font-bold text-gray-800 mt-1">
+            ₹ {income.toLocaleString()}
+          </h2>
         </div>
+
+        {/* Expense */}
+        <div className="bg-[#ffd6e0] w-[170px] px-5 py-4 rounded-2xl shadow-sm">
+          <p className="text-sm text-gray-500">
+            Expense
+          </p>
+
+          <h2 className="text-2xl font-bold text-gray-800 mt-1">
+            ₹ {spent.toLocaleString()}
+          </h2>
+        </div>
+
       </div>
 
-      {/* Right Section - Buttons */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full lg:w-auto lg:min-w-fit">
-        {/* Expense List Button */}
+      {/* Right Side */}
+      <div className="flex items-center gap-3">
+
+        {/* Expense List */}
         <button
           onClick={openExpenseList}
-          className="bg-[#c7d2fe] hover:bg-[#b6c4fb] text-gray-700 px-5 py-3 rounded-2xl shadow-md flex items-center justify-center gap-2 font-medium transition"
+          className="h-11 px-4 bg-[#c7d2fe] hover:bg-[#b6c4fb]
+          rounded-xl shadow-md text-gray-700
+          text-sm font-medium flex items-center gap-2 transition"
         >
-          <FaEye className="text-sm" />
+          <FaEye />
           Expense List
         </button>
 
-        {/* Add Expense Button */}
+        {/* Add Expense */}
         <button
           onClick={openModal}
-          className="bg-pink-400 hover:bg-pink-500 text-white px-5 py-3 rounded-2xl shadow-md flex items-center justify-center gap-2 font-medium transition"
+          className="h-11 px-4 bg-pink-400 hover:bg-pink-500
+          rounded-xl shadow-md text-white
+          text-sm font-medium flex items-center gap-2 transition"
         >
-          <FaPlus className="text-sm" />
+          <FaPlus />
           Add Expense
         </button>
+
+        {/* AI */}
+        <button
+          onClick={openAIInsights}
+          className="h-11 px-4 bg-gradient-to-r
+          from-purple-500 to-indigo-600
+          hover:from-purple-600 hover:to-indigo-700
+          rounded-xl shadow-md text-white
+          text-sm font-medium flex items-center gap-2 transition"
+        >
+          <FaRobot />
+          AI Insights
+        </button>
+
+        {/* Logout */}
         <button
           onClick={logout}
-          className="bg-red-500 hover:bg-red-600 text-white px-5 py-3 rounded-2xl shadow-md flex items-center justify-center gap-2 font-medium transition"
+          className="h-11 px-4 bg-red-500 hover:bg-red-600
+          rounded-xl shadow-md text-white
+          text-sm font-medium flex items-center gap-2 transition"
         >
           <FaSignOutAlt />
           Logout
         </button>
+
       </div>
+
     </div>
   );
 }
