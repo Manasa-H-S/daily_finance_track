@@ -121,16 +121,16 @@ function AIInsightsModal({
     const alerts =
         getOverspendingAlerts(expenses);
 
-    let advisor = "Excellent financial management.";
-    if (spentPercentage > 80) {
-        advisor = "Your spending is very high this month. Try reducing unnecessary expenses.";
-    }
-    else if (spentPercentage > 60) {
-        advisor = "Your expenses are moderate. You can improve your savings.";
-    }
-    else {
-        advisor = "Great! Your savings are healthy this month.";
-    }
+    // let advisor = "Excellent financial management.";
+    // if (spentPercentage > 80) {
+    //     advisor = "Your spending is very high this month. Try reducing unnecessary expenses.";
+    // }
+    // else if (spentPercentage > 60) {
+    //     advisor = "Your expenses are moderate. You can improve your savings.";
+    // }
+    // else {
+    //     advisor = "Great! Your savings are healthy this month.";
+    // }
 
     return (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
