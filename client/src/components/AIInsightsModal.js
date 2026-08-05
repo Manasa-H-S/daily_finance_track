@@ -82,22 +82,14 @@ function AIInsightsModal({
         percentage = ((currentTotal - previousTotal) / previousTotal) * 100;
     }
 
-    let score = 100;
+    let score = 0;
 
-    const spentPercentage = (currentTotal / income) * 100;
+    if (income > 0) {
+        score = Math.round((saving / income) * 100);
+    }
 
-    if (spentPercentage > 90) {
-        score = 20;
-    }
-    else if (spentPercentage > 80) {
-        score = 40;
-    }
-    else if (spentPercentage > 70) {
-        score = 60;
-    }
-    else if (spentPercentage > 50) {
-        score = 80;
-    }
+    // Prevent values outside 0-100
+    score = Math.max(0, Math.min(score, 100));
 
     const categoryTotals = {};
 
@@ -183,9 +175,12 @@ function AIInsightsModal({
                             <h2 className="font-bold text-xl">
                                 Health Score
                             </h2>
-                            <h1 className="text-6xl mt-8 font-bold text-green-600">
+                            <h1 className="text-6xl mt-4 font-bold text-green-600">
                                 {score}/100
                             </h1>
+                            <p className="mt-3 text-gray-500">
+                                This is your score based on your savings this month!
+                            </p>
                         </div>
                         <SpendingForecast
                             currentExpense={currentTotal}
