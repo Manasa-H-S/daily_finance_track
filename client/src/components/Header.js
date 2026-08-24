@@ -19,100 +19,198 @@ function Header({
   logout,
 }) {
   return (
-    <div className="flex items-center justify-between gap-6">
+    <div className="w-full">
+      <div className="flex flex-col xl:flex-row xl:items-center xl:justify-between gap-5">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
 
-      {/* Left Side */}
-      <div className="flex items-center gap-6">
+          <div className="min-w-0 sm:min-w-[180px]">
+            <h1 className="text-4xl md:text-5xl font-bold italic leading-none text-gray-800">
+              {month}
+            </h1>
 
-        {/* Month */}
-        <div className="w-[220px]">
-          <h1 className="text-6xl font-bold italic leading-none text-gray-800">
-            {month}
-          </h1>
+            <p className="text-gray-500 text-base md:text-lg mt-1">
+              Finance Tracker
+            </p>
+          </div>
 
-          <p className="text-gray-500 text-xl mt-2">
-            Finance Tracker
-          </p>
+          {/* Income + Expense */}
+          <div className="grid grid-cols-2 gap-3">
+
+            {/* Income */}
+            <div
+              onClick={openIncomeModal}
+              className="
+                bg-[#fff0b8]
+                w-full
+                sm:w-[150px]
+                md:w-[160px]
+                px-4
+                py-3
+                rounded-2xl
+                shadow-sm
+                cursor-pointer
+                hover:shadow-md
+                transition
+              "
+            >
+              <p className="text-xs md:text-sm text-gray-500">
+                Income
+              </p>
+
+              <h2 className="text-lg md:text-xl font-bold text-gray-800 mt-1 whitespace-nowrap">
+                ₹ {Number(income || 0).toLocaleString()}
+              </h2>
+            </div>
+
+            {/* Expense */}
+            <div
+              className="
+                bg-[#ffd6e0]
+                w-full
+                sm:w-[150px]
+                md:w-[160px]
+                px-4
+                py-3
+                rounded-2xl
+                shadow-sm
+              "
+            >
+              <p className="text-xs md:text-sm text-gray-500">
+                Expense
+              </p>
+
+              <h2 className="text-lg md:text-xl font-bold text-gray-800 mt-1 whitespace-nowrap">
+                ₹ {Number(spent || 0).toLocaleString()}
+              </h2>
+            </div>
+
+          </div>
         </div>
 
-        {/* Income */}
+        {/* ================= RIGHT BUTTONS ================= */}
         <div
-          onClick={openIncomeModal}
-          className="bg-[#fff0b8] w-[170px] px-5 py-4 rounded-2xl shadow-sm cursor-pointer hover:shadow-md transition"
+          className="
+            grid
+            grid-cols-2
+            sm:grid-cols-4
+            xl:flex
+            xl:items-center
+            gap-2
+            w-full
+            xl:w-auto
+          "
         >
-          <p className="text-sm text-gray-500">
-            Income
-          </p>
 
-          <h2 className="text-2xl font-bold text-gray-800 mt-1">
-            ₹ {income.toLocaleString()}
-          </h2>
-        </div>
+          {/* Expense List */}
+          <button
+            onClick={openExpenseList}
+            className="
+              h-10
+              px-3
+              bg-[#c7d2fe]
+              hover:bg-[#b6c4fb]
+              rounded-xl
+              shadow-md
+              text-gray-700
+              text-xs
+              sm:text-sm
+              font-medium
+              flex
+              items-center
+              justify-center
+              gap-1.5
+              whitespace-nowrap
+              transition
+            "
+          >
+            <FaEye className="text-xs sm:text-sm" />
+            <span>Expense List</span>
+          </button>
 
-        {/* Expense */}
-        <div className="bg-[#ffd6e0] w-[170px] px-5 py-4 rounded-2xl shadow-sm">
-          <p className="text-sm text-gray-500">
-            Expense
-          </p>
+          {/* Add Expense */}
+          <button
+            onClick={openModal}
+            className="
+              h-10
+              px-3
+              bg-pink-400
+              hover:bg-pink-500
+              rounded-xl
+              shadow-md
+              text-white
+              text-xs
+              sm:text-sm
+              font-medium
+              flex
+              items-center
+              justify-center
+              gap-1.5
+              whitespace-nowrap
+              transition
+            "
+          >
+            <FaPlus className="text-xs sm:text-sm" />
+            <span>Add Expense</span>
+          </button>
 
-          <h2 className="text-2xl font-bold text-gray-800 mt-1">
-            ₹ {spent.toLocaleString()}
-          </h2>
+          {/* AI Insights */}
+          <button
+            onClick={openAIInsights}
+            className="
+              h-10
+              px-3
+              bg-gradient-to-r
+              from-purple-500
+              to-indigo-600
+              hover:from-purple-600
+              hover:to-indigo-700
+              rounded-xl
+              shadow-md
+              text-white
+              text-xs
+              sm:text-sm
+              font-medium
+              flex
+              items-center
+              justify-center
+              gap-1.5
+              whitespace-nowrap
+              transition
+            "
+          >
+            <FaRobot className="text-xs sm:text-sm" />
+            <span>AI Insights</span>
+          </button>
+
+          {/* Logout */}
+          <button
+            onClick={logout}
+            className="
+              h-10
+              px-3
+              bg-red-500
+              hover:bg-red-600
+              rounded-xl
+              shadow-md
+              text-white
+              text-xs
+              sm:text-sm
+              font-medium
+              flex
+              items-center
+              justify-center
+              gap-1.5
+              whitespace-nowrap
+              transition
+            "
+          >
+            <FaSignOutAlt className="text-xs sm:text-sm" />
+            <span>Logout</span>
+          </button>
+
         </div>
 
       </div>
-
-      {/* Right Side */}
-      <div className="flex items-center gap-3">
-
-        {/* Expense List */}
-        <button
-          onClick={openExpenseList}
-          className="h-11 px-4 bg-[#c7d2fe] hover:bg-[#b6c4fb]
-          rounded-xl shadow-md text-gray-700
-          text-sm font-medium flex items-center gap-2 transition"
-        >
-          <FaEye />
-          Expense List
-        </button>
-
-        {/* Add Expense */}
-        <button
-          onClick={openModal}
-          className="h-11 px-4 bg-pink-400 hover:bg-pink-500
-          rounded-xl shadow-md text-white
-          text-sm font-medium flex items-center gap-2 transition"
-        >
-          <FaPlus />
-          Add Expense
-        </button>
-
-        {/* AI */}
-        <button
-          onClick={openAIInsights}
-          className="h-11 px-4 bg-gradient-to-r
-          from-purple-500 to-indigo-600
-          hover:from-purple-600 hover:to-indigo-700
-          rounded-xl shadow-md text-white
-          text-sm font-medium flex items-center gap-2 transition"
-        >
-          <FaRobot />
-          AI Insights
-        </button>
-
-        {/* Logout */}
-        <button
-          onClick={logout}
-          className="h-11 px-4 bg-red-500 hover:bg-red-600
-          rounded-xl shadow-md text-white
-          text-sm font-medium flex items-center gap-2 transition"
-        >
-          <FaSignOutAlt />
-          Logout
-        </button>
-
-      </div>
-
     </div>
   );
 }
