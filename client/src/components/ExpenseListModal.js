@@ -8,20 +8,20 @@ import {
 const parseExpenseDate = (dateString) => {
     if (!dateString) return null;
 
-    // If already YYYY-MM-DD
-    if (dateString.length === 10) {
-        const [year, month, day] = dateString.split("-").map(Number);
+    // Convert to string in case MySQL returns another type
+    const value = String(dateString);
+
+    // YYYY-MM-DD
+    if (/^\d{4}-\d{2}-\d{2}/.test(value)) {
+        const [year, month, day] = value
+            .substring(0, 10)
+            .split("-")
+            .map(Number);
+
         return new Date(year, month - 1, day);
     }
 
-    // If ISO format (2026-07-01T00:00:00.000Z)
-    const d = new Date(dateString);
-
-    return new Date(
-        d.getUTCFullYear(),
-        d.getUTCMonth(),
-        d.getUTCDate()
-    );
+    return null;
 };
 
 function ExpenseListModal({
@@ -136,9 +136,30 @@ function ExpenseListModal({
         setEditingId(null);
     };
 
+    // const formatExpenseDate = (dateString) => {
+    //     const date = parseExpenseDate(dateString);
+    //     return date ? date.toISOString().split("T")[0] : "";
+    // };
     const formatExpenseDate = (dateString) => {
-        const date = parseExpenseDate(dateString);
-        return date ? date.toISOString().split("T")[0] : "";
+        if (!dateString) return "";
+
+        const value = String(dateString);
+
+        // Directly return the date part.
+        // This avoids timezone conversion completely.
+        if (/^\d{4}-\d{2}-\d{2}/.test(value)) {
+            return value.substring(0, 10);
+        }
+
+        const date = parseExpenseDate(value);
+
+        if (!date) return "";
+
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
     };
 
     return (
