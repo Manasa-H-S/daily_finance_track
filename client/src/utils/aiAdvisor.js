@@ -10,7 +10,7 @@ export const getAIAdvice = (
 
     switch (highestCategory[0]) {
 
-      case "Transport":
+      case "Transportation":
         aiAdvice.push(
           "Try using public transport or carpooling 1-2 days a week."
         );
@@ -19,7 +19,7 @@ export const getAIAdvice = (
         );
         break;
 
-      case "Hotel":
+      case "Restaurant":
         aiAdvice.push(
           "Dining out is your biggest expense."
         );
@@ -28,7 +28,7 @@ export const getAIAdvice = (
         );
         break;
 
-      case "Drink":
+      case "Drinks":
         aiAdvice.push(
           "Beverage expenses are high this month."
         );
@@ -37,7 +37,7 @@ export const getAIAdvice = (
         );
         break;
 
-      case "Accessories":
+      case "Beauty & Personal Care":
         aiAdvice.push(
           "Shopping is your highest spending category."
         );
@@ -82,7 +82,7 @@ export const getAIAdvice = (
         );
         break;
 
-      case "Veg & Fruits":
+      case "Fruits, Vegetables & Flowers":
         aiAdvice.push(
           "Healthy food spending is good."
         );
@@ -102,27 +102,33 @@ export const getAIAdvice = (
 
       default:
         aiAdvice.push(
-          "Your spending is balanced. Keep tracking your expenses regularly."
+          "Keep tracking your expenses!!!."
         );
     }
   }
 
-  if (saving > income * 0.30) {
+  if (saving >= income * 0.30) {
 
     aiAdvice.push(
-      "Excellent! You are saving more than 30% of your income."
+      "Excellent financial management! You are saving 30% or more of your income. Keep maintaining this healthy savings rate."
     );
 
-  } else if (saving > income * 0.20) {
+  } else if (saving >= income * 0.20) {
 
     aiAdvice.push(
-      "Good savings! Try reaching a 30% savings target."
+      "Good financial management! You are saving at least 20% of your income. Consider gradually increasing your savings toward the 30% target."
+    );
+
+  } else if (saving > 0) {
+
+    aiAdvice.push(
+      "Your current savings are below 20% of your income. Consider reviewing your discretionary expenses and setting a monthly savings target."
     );
 
   } else {
 
     aiAdvice.push(
-      "Your savings are below 20%. Try reducing unnecessary spending."
+      "Your expenses have exceeded your income this month. Consider reducing non-essential spending and reviewing your daily expenses to bring your spending within your income."
     );
 
   }
