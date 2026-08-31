@@ -9,10 +9,10 @@ function SpendingForecast({
     const remainingBudget =
         income - predictedExpense;
 
-    const percentage =
-        income > 0
-            ? ((predictedExpense / income) * 100).toFixed(1)
-            : 0;
+    // const percentage =
+    //     income > 0
+    //         ? ((predictedExpense / income) * 100).toFixed(1)
+    //         : 0;
 
     return (
         <div className="bg-[#eef8ff] rounded-3xl shadow-sm p-5">
