@@ -9,7 +9,7 @@ const getExpenses = async (req, res) => {
             `SELECT id, title, amount, details, date
        FROM expenses
        WHERE user_id = ?
-       ORDER BY date DESC`,
+       ORDER BY date DESC, id DESC`,
             [userId]
         );
 
